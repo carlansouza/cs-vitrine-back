@@ -10,7 +10,7 @@ CONTEXT = "User"
 router = APIRouter()
 
     
-@router.get(BASE_URL + "/all", response_model=List[User], tags=[CONTEXT])
+@router.get(BASE_URL , response_model=List[User], tags=[CONTEXT])
 async def get_all_users():
     try:
         return service.get_all_users()

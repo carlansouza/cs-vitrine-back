@@ -1,8 +1,6 @@
 from src.modules.database.db_connection import SessionLocal
-from src.modules.user.dto import User
-from sqlalchemy import select
-from sqlalchemy.orm import Session
 from src.models.users_model import User as UserModel
+from src.modules.user.dto import User
 
 def get_user_by_id(user_id: int):
     session = SessionLocal()
