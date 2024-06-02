@@ -1,7 +1,15 @@
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from sqlalchemy.sql import func
 from src.modules.database.db_connection import Base
+from enum import Enum
 
+class Role(Enum):
+    """
+    Enum class for user roles
+    """
+    ADMIN = 'admin'
+    USER = 'user'
+    
 class User(Base):
     """
     User model class for storing user related details

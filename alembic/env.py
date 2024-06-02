@@ -7,11 +7,11 @@ from alembic import context
 from src.modules.database.db_connection import Base
 # Local models
 from src.models.users_model import User
-from src.models.cars_models import Car
+from src.models.cars_models import  Car
 
 config = context.config
 
-fileConfig(config.config_file_name)
+fileConfig(str(config.config_file_name))
 
 target_metadata = Base.metadata
 

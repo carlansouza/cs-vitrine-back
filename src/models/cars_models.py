@@ -13,6 +13,6 @@ class Car(Base):
     model = Column(String, index=True)
     price = Column(Integer)
     image = Column(String)
-    d_alt = Column(String, default = "img")
+    d_alt = Column(String)
 
     
