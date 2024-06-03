@@ -15,8 +15,4 @@ class User(BaseModel):
     is_active: bool
     created_at: Union[str, Any]
     updated_at: Union[str, None]
-  
-
-    class Config:
-        # orm_mode = True
-        from_attributes = True
+    role: str

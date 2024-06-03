@@ -1,27 +1,36 @@
 from src.modules.user.dto import UserCreate, User
 from typing import Any
-from fastapi import HTTPException, APIRouter
-from src.modules.user import  service
+from fastapi import HTTPException, APIRouter, Depends
+from src.modules.user import service
 from typing import List
-from src.modules.auth.jwt.validator import jwt_required, permission_required, get_current_user
 from src.models.users_model import Role
-from fastapi import Depends
+from fastapi.security import HTTPAuthorizationCredentials
+from src.modules.auth.jwt.validator import security
+from src.utils.dtos.pagination_dto import Meta, Paginated
+from src.utils.pagination.get_meta import get_meta
+from typing import List, Any
 
 BASE_URL = "/users"
 CONTEXT = "User"
 router = APIRouter()
 
-@router.get(BASE_URL, response_model=List[User], tags=[CONTEXT])
-# @jwt_required
-# @permission_required([Role.ADMIN.value])
-# async def get_all_users(current_user: User = Depends(get_current_user)):
-async def get_all_users():
+from fastapi import Query
+
+@router.get(BASE_URL, response_model=Paginated[User], tags=[CONTEXT])
+async def get_all_users(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    page: int = Query(1, gt=0),
+    per_page: int = Query(10, gt=0)
+):
     try:
-        return service.get_all_users()
+        users = service.get_all_users(page=page, per_page=per_page)
+        total_users = service.get_total_users_count()
+        last_page = total_users // per_page + (total_users % per_page > 0)
+        meta = get_meta(total_users, last_page, page, per_page)
+        return Paginated(data=users, meta=meta)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
     
-
 @router.get(BASE_URL + "/{user_id}", response_model=User, tags=[CONTEXT])
 async def get_user_by_id(user_id: int):
     try:
@@ -47,7 +56,8 @@ async def create_user(user: UserCreate):
         )
         
 @router.delete(BASE_URL + "/{user_id}", tags=[CONTEXT])
-async def delete_user(user_id: int):
+async def delete_user(user_id: int,
+                      credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
         service.delete_user(user_id)
     except Exception as e:

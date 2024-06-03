@@ -6,6 +6,13 @@ from src.models.users_model import User as UserModel
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+def get_all_users(page: int = 1, per_page: int = 10):
+    return repository.get_all_users(page=page, per_page=per_page)
+
+def get_total_users_count():
+    return repository.get_total_users_count()
+
+
 def get_user_by_id(user_id: int):
     return repository.get_user_by_id(user_id)                                
 
@@ -22,9 +29,6 @@ def verify_password(plain_password: str, hashed_password: str):
 
 def delete_user(user_id: int):
     return repository.delete_user(user_id)
-
-def get_all_users():
-    return repository.get_all_users()
 
 def get_user_by_email(email: str):
     return repository.get_user_by_email(email)
