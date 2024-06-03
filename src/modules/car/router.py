@@ -1,7 +1,10 @@
 from src.modules.car.dto import CarCreate, Car
-from fastapi import HTTPException, APIRouter
+from fastapi import HTTPException, APIRouter, Depends
 from src.modules.car import  service
 from typing import List
+from fastapi.security import HTTPAuthorizationCredentials
+from src.modules.auth.jwt.validator import security
+
 
 
 BASE_URL = "/cars"
@@ -17,7 +20,8 @@ async def get_all_cars():
 
 
 @router.get(BASE_URL + "/{car_id}", response_model=Car, tags=[CONTEXT])
-async def get_car_by_id(car_id: int):
+async def get_car_by_id(car_id: int,
+                        credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
         car = service.get_car_by_id(car_id)
         if not car:
@@ -39,14 +43,17 @@ async def create_car(car: CarCreate):
         )
     
 @router.delete(BASE_URL + "/{car_id}", tags=[CONTEXT])
-async def delete_car(car_id: int):
+async def delete_car(car_id: int,
+                     credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
         service.delete_car(car_id)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str("Error deleting car"))
 
 @router.put(BASE_URL + "/{car_id}", response_model=Car, tags=[CONTEXT])
-async def update_car(car_id: int, car: CarCreate):
+async def update_car(car_id: int, 
+                     car: CarCreate,
+                     credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
         return service.update_car(car_id, car)
     except Exception as e:

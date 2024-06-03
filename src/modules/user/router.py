@@ -1,20 +1,20 @@
-from src.modules.user.dto import UserCreate, User
+from src.modules.user.dto import UserCreate, User, UserLogin
 from typing import Any
 from fastapi import HTTPException, APIRouter, Depends
 from src.modules.user import service
-from typing import List
-from src.models.users_model import Role
 from fastapi.security import HTTPAuthorizationCredentials
 from src.modules.auth.jwt.validator import security
-from src.utils.dtos.pagination_dto import Meta, Paginated
+from src.utils.dtos.pagination_dto import Paginated
 from src.utils.pagination.get_meta import get_meta
-from typing import List, Any
+from typing import Any
+from fastapi import Query
+from src.modules.user import service
+from src.modules.auth import service as service_auth
+
 
 BASE_URL = "/users"
 CONTEXT = "User"
 router = APIRouter()
-
-from fastapi import Query
 
 @router.get(BASE_URL, response_model=Paginated[User], tags=[CONTEXT])
 async def get_all_users(
@@ -32,7 +32,8 @@ async def get_all_users(
         raise HTTPException(status_code=404, detail=str(e))
     
 @router.get(BASE_URL + "/{user_id}", response_model=User, tags=[CONTEXT])
-async def get_user_by_id(user_id: int):
+async def get_user_by_id(user_id: int,
+                         credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
         user = service.get_user_by_id(user_id)
         if not user:
@@ -62,6 +63,22 @@ async def delete_user(user_id: int,
         service.delete_user(user_id)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str("Error deleting user"))
+    
+
+@router.post(BASE_URL + "/login" , response_model=UserLogin, tags=[CONTEXT])
+async def login_user(user: UserLogin):
+    try:     
+        _email = service.get_user_by_email(user.email)
+        _password = service_auth.verify_password(user.hashed_password, _email.hashed_password)
+        if not _email or not _password:
+            raise HTTPException(status_code=404, detail="User or Password not found")
+        return _email
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Error getting user")
+    
+
     
 
     

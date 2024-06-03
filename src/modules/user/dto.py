@@ -16,3 +16,8 @@ class User(BaseModel):
     created_at: Union[str, Any]
     updated_at: Union[str, None]
     role: str
+
+class UserLogin(BaseModel):
+    email: str
+    hashed_password: str
+

@@ -1,6 +1,5 @@
-
 from passlib.context import CryptContext
-from src.modules.user.dto import User, UserCreate
+from src.modules.user.dto import UserCreate
 from src.modules.user import repository
 from src.models.users_model import User as UserModel
 
@@ -32,5 +31,4 @@ def delete_user(user_id: int):
 
 def get_user_by_email(email: str):
     return repository.get_user_by_email(email)
-
 
