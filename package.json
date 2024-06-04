@@ -1,6 +1,6 @@
 {
     "name": "api-csvitrine",
-    "version": 2,
+    "version": 1,
     "description": "API pour la gestion de la vitrine",
     "main": "index.js",
     "type": "module",
