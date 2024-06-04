@@ -1,3 +1,4 @@
+from src.modules.auth.dto import UserAuth
 from src.modules.user.dto import UserCreate, User, UserLogin
 from typing import Any
 from fastapi import HTTPException, APIRouter, Depends
@@ -65,20 +66,25 @@ async def delete_user(user_id: int,
         raise HTTPException(status_code=404, detail=str("Error deleting user"))
     
 
-@router.post(BASE_URL + "/login" , response_model=UserLogin, tags=[CONTEXT])
-async def login_user(user: UserLogin):
-    try:     
-        _email = service.get_user_by_email(user.email)
-        _password = service_auth.verify_password(user.hashed_password, _email.hashed_password)
-        if not _email or not _password:
-            raise HTTPException(status_code=404, detail="User or Password not found")
-        return _email
-    except HTTPException as e:
-        raise e
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Error getting user")
+# @router.post(BASE_URL + "/login" , response_model=UserLogin, tags=[CONTEXT])
+# async def login_user(user: UserLogin):
+#     try:     
+#         _email = service.get_user_by_email(user.email)
+#         _password = service_auth.verify_password(user.hashed_password, _email.hashed_password)
+#         if not _email or not _password:
+#             raise HTTPException(status_code=404, detail="User or Password not found")
+#         return _email
+#     except HTTPException as e:
+#         raise e
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail="Error getting user")
     
-
+@router.post(BASE_URL + "/auth/login", tags=[CONTEXT])
+async def login(user_data: UserAuth):
+    token = service_auth.auth_user(user_data)
+    if not token:
+        raise HTTPException(status_code=400, detail="Invalid credentials")
+    return {"token": token}
     
 
     

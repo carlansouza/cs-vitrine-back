@@ -7,7 +7,7 @@ from jose import jwt, JWTError, ExpiredSignatureError
 
 SECRET_KEY = "sua_chave_secreta"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 1000
+ACCESS_TOKEN_EXPIRE_MINUTES = 3000
 
 security = HTTPBearer()
 
