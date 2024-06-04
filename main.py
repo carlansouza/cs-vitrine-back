@@ -1,14 +1,14 @@
-from fastapi import Depends, FastAPI, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-import jwt
-from jwt import PyJWTError
-from datetime import datetime, timedelta
+from fastapi import  FastAPI
 from src.modules.user.router import router as user_router
 from src.modules.auth.router import router as auth_router
 from src.modules.car.router import router as car_router
 from fastapi.middleware.cors import CORSMiddleware
 
 import uvicorn
+import os
+
+
+port = os.environ.get('PORT') or 8000;
 
 app = FastAPI(
     title="CSCar Backend API",
