@@ -66,7 +66,7 @@ fastapi_project
 
   ```json
   {
-    "username": "seu-username",
+    "name": "seu-username",
     "email": "seu-email@example.com",
     "password": "sua-senha"
   }
