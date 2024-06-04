@@ -63,21 +63,7 @@ async def delete_user(user_id: int,
     try:
         service.delete_user(user_id)
     except Exception as e:
-        raise HTTPException(status_code=404, detail=str("Error deleting user"))
-    
-
-# @router.post(BASE_URL + "/login" , response_model=UserLogin, tags=[CONTEXT])
-# async def login_user(user: UserLogin):
-#     try:     
-#         _email = service.get_user_by_email(user.email)
-#         _password = service_auth.verify_password(user.hashed_password, _email.hashed_password)
-#         if not _email or not _password:
-#             raise HTTPException(status_code=404, detail="User or Password not found")
-#         return _email
-#     except HTTPException as e:
-#         raise e
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail="Error getting user")
+        raise HTTPException(status_code=404, detail=str("Error deleting user"))    
     
 @router.post(BASE_URL + "/auth/login", tags=[CONTEXT])
 async def login(user_data: UserAuth):
