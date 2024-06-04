@@ -12,6 +12,7 @@ app = FastAPI(
 )
 
 origins = [
+    "https://cs-vitrine-back-445greuix-carlas-projects-420903b3.vercel.app"
     "http://localhost",
     "http://localhost:8000",
     "http://localhost:4200"
