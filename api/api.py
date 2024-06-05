@@ -17,17 +17,17 @@ app = FastAPI(
 )
 
 origins = [
-    "https://cs-vitrine-back-445greuix-carlas-projects-420903b3.vercel.app/ping"
-    # "http://localhost",
-    # "http://localhost:8000",
-    # "http://localhost:4200"
+    "https://cs-vitrine-back.vercel.app/",
+    "http://localhost",
+    "http://localhost:8000",
+    "http://localhost:4200"
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],  # Métodos permitidos
+    allow_methods=["*"],  # Métodos permitidos
     allow_headers=["*"]
 )
 
