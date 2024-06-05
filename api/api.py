@@ -17,7 +17,7 @@ app = FastAPI(
 )
 
 origins = [
-    "https://cs-vitrine-back.vercel.app/",
+    "https://main--teste-vitrine.netlify.app",
     "http://localhost",
     "http://localhost:8000",
     "http://localhost:4200"
