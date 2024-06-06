@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer
-from jose import jwt, JWTError, ExpiredSignatureError
+from jose import jwt
+from decouple import config
 
 
-
-SECRET_KEY = "sua_chave_secreta"
+secret_key = config("SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 3000
 
@@ -15,12 +15,12 @@ def create_access_token(data: dict, expires_delta: timedelta = timedelta(minutes
     to_encode = data.copy()
     expire = datetime.now() + expires_delta
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, secret_key, algorithm=ALGORITHM)
     return encoded_jwt
 
 async def decode_token(token: str = Depends(security)):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, secret_key, algorithms=[ALGORITHM])
         return payload
     except Exception as e:
         raise HTTPException(

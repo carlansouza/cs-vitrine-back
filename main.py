@@ -1,11 +1,12 @@
 from dotenv import load_dotenv
 import uvicorn
-import os
 from api.api import app
+from decouple import config
 
-load_dotenv()   
+load_dotenv()
 
-PORT = int(os.getenv('PORT', 8000))
+
+PORT = config('PORT')
 HOST = '0.0.0.0' 
 
 if __name__ == "__main__":
