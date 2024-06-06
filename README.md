@@ -19,7 +19,7 @@ Este é um projeto básico de uma aplicação FastAPI com autenticação usando 
 1. **Clone o repositório:**
 
    ```sh
-   git clone https://github.com/seu-usuario/seu-repositorio.git
+   git clone https://github.com/carlansouza/cs-vitrine-back
    cd seu-repositorio
    ```
 
@@ -64,6 +64,23 @@ PORT=8000
 ## Swagger
  - Para acessar a documentação da API, acesse o link: http://localhost:8000/docs
 ##
+
+### Dinâmica
+```markdown
+- Cada carro deve tem as informações: 
+    name, brand, model, price, image_url.
+
+- Cada user tem as informações: 
+    name, email, password.
+
+- No login se deve passar apenas: 
+    email e password
+
+- Só é possivel cadastrar um carro com a autenticação de administrador, assim como atualizar e deletar.
+
+- A rota GET /car é aberta, logo, pode ser acessada independente de autenticação.
+```
+
 ### Criação de um novo usuário
 
 - **Endpoint:** `POST /users/`
