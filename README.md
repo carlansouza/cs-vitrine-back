@@ -45,9 +45,9 @@ Este é um projeto básico de uma aplicação FastAPI com autenticação usando 
 - ## Seed
 o seed.py é responsável por popular o banco de dados com os dados iniciais.
 
-| User: admin@admin.com | Password: admin |
-|-----------------------|------------------|
-| User: user@example.com | Password: password1|
+| User: admin@admin.com | Password: admin | Tipo: Admin |
+|-----------------------|------------------| ------------|
+| User: user@example.com | Password: password1| Tipo: User |
 
 ##
 ## Variáveis de ambiente
@@ -111,7 +111,7 @@ PORT=8000
 
   ```json
   {
-    "username": "seu-username",
+    "email": "seu-email",
     "password": "sua-senha"
   }
   ```
