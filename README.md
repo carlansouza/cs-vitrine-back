@@ -1,27 +1,11 @@
-Claro, aqui está um exemplo de README.md para o seu projeto FastAPI com Docker:
+# CS VITRINE - Backend
+
 
 ```markdown
 # FastAPI Project
+Desenvolvido para teste de seleção, com o objetivo de criar uma vitrine de venda de carros.
 
 Este é um projeto básico de uma aplicação FastAPI com autenticação usando JWT, configurada para ser executada em um contêiner Docker.
-
-## Estrutura do Projeto
-
-```
-fastapi_project
-├── app
-│   ├── __init__.py
-│   ├── database.py
-│   ├── models.py
-│   ├── schemas.py
-│   ├── crud.py
-│   ├── auth.py
-│   └── main.py
-├── requirements.txt
-├── Dockerfile
-├── docker-compose.yml
-└── README.md
-```
 
 ## Configuração e Execução
 
@@ -29,7 +13,7 @@ fastapi_project
 
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-
+```	
 ### Passos para executar o projeto
 
 1. **Clone o repositório:**
@@ -57,8 +41,29 @@ fastapi_project
    http://127.0.0.1:8000
    ```
 
-## Uso da API
+##
+- ## Seed
+o seed.py é responsável por popular o banco de dados com os dados iniciais.
 
+| User: admin@admin.com | Password: admin |
+|-----------------------|------------------|
+| User: user@example.com | Password: password1|
+
+##
+## Variáveis de ambiente
+Crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis de ambiente:
+- ## .env
+```bash
+SECRET_KEY="sua_chave_secreta"
+PORT=8000
+```
+
+##
+# Uso da API
+
+## Swagger
+ - Para acessar a documentação da API, acesse o link: http://localhost:8000/docs
+##
 ### Criação de um novo usuário
 
 - **Endpoint:** `POST /users/`
@@ -68,7 +73,7 @@ fastapi_project
   {
     "name": "seu-username",
     "email": "seu-email@example.com",
-    "password": "sua-senha"
+    "hasehd_password": "sua-senha"
   }
   ```
 
@@ -78,13 +83,13 @@ fastapi_project
   curl -X POST "http://127.0.0.1:8000/users/" -H "Content-Type: application/json" -d '{
     "username": "seu-username",
     "email": "seu-email@example.com",
-    "password": "sua-senha"
+    "hasehd_password": "sua-senha"
   }'
   ```
 
 ### Autenticação e obtenção do token JWT
 
-- **Endpoint:** `POST /token`
+- **Endpoint:** `POST /auth`
 - **Corpo da requisição (form-data):**
 
   ```json
@@ -93,6 +98,20 @@ fastapi_project
     "password": "sua-senha"
   }
   ```
+
+##
+## Erro de CORS
+- Caso ocorra erro de CORS, necessario verificar a porta que o frontend está rodando e adicionar no arquivo main.py
+
+```python
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4200"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
 
 ## Dependências
 
