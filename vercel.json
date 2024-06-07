@@ -16,11 +16,6 @@
         "Access-Control-Allow-Headers": "Content-Type, Authorization"
       }
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "https://cs-vitrine-back.vercel.app/$1"
-    }
   ]
-}
+  }
+  
