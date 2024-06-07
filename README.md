@@ -23,19 +23,26 @@ Este é um projeto básico de uma aplicação FastAPI com autenticação usando 
    cd seu-repositorio
    ```
 
-2. **Construir a imagem Docker:**
+2. **Configure as variáveis de ambiente:**
+
+   ```sh
+   cp .env_example .env
+   ```
+    - Crie um arquivo `.env` e configure as variáveis de ambiente conforme necessário.
+
+3. **Construir a imagem Docker:**
 
    ```sh
    docker-compose build
    ```
 
-3. **Iniciar o contêiner Docker:**
+4. **Iniciar o contêiner Docker:**
 
    ```sh
    docker-compose up
    ```
 
-4. **A aplicação estará disponível em:**
+5. **A aplicação estará disponível em:**
 
    ```
    http://localhost:8000/docs
@@ -49,14 +56,7 @@ o seed.py é responsável por popular o banco de dados com os dados iniciais.
 |-----------------------|------------------| ------------|
 | User: user@example.com | Password: password1| Tipo: User |
 
-##
-## Variáveis de ambiente
-Crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis de ambiente:
-- ## .env
-```bash
-SECRET_KEY="sua_chave_secreta"
-PORT=8000
-```
+
 
 ##
 # Uso da API
