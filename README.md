@@ -38,7 +38,7 @@ Este é um projeto básico de uma aplicação FastAPI com autenticação usando 
 4. **A aplicação estará disponível em:**
 
    ```
-   http://127.0.0.1:8000
+   http://localhost:8000/docs
    ```
 
 ##
@@ -97,7 +97,7 @@ PORT=8000
 - **Exemplo de comando curl:**
 
   ```sh
-  curl -X POST "http://127.0.0.1:8000/users/" -H "Content-Type: application/json" -d '{
+  curl -X POST "http://localhost:8000/users/" -H "Content-Type: application/json" -d '{
     "username": "seu-username",
     "email": "seu-email@example.com",
     "hasehd_password": "sua-senha"
@@ -139,5 +139,5 @@ As dependências do projeto estão listadas no arquivo `requirements.txt`:
 1. **Clone o repositório**: Baixe o projeto do repositório GitHub.
 2. **Construa a imagem Docker**: Use `docker-compose build` para construir a imagem Docker.
 3. **Inicie o contêiner Docker**: Use `docker-compose up` para iniciar o contêiner.
-4. **Acesse a aplicação**: A aplicação estará disponível em `http://127.0.0.1:8000`.
+4. **Acesse a aplicação**: A aplicação estará disponível em `http://localhost:8000/docs`.
 

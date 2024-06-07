@@ -6,25 +6,13 @@ from src.models.users_model import Role
 
 def seed():
     session = SessionLocal()
-    users_data = [
-        {
-            "name": "admin",
-            "email": "admin@admin.com",
-            "hashed_password": pwd_context.hash("admin"),
-            "role": Role.ADMIN.value
-        },
-        {
-            "name": "user1",
-            "email": "user1@example.com",
-            "hashed_password": pwd_context.hash("password1"),
-            "role": Role.USER.value
-        }
-    ]
-    
-    for user_data in users_data:
-        user = UserModel(**user_data)
-        session.add(user)
-    
+    user = UserModel(
+        name="admin",
+        email="admin@admin.com",
+        hashed_password=pwd_context.hash("admin"),
+        role=Role.ADMIN.value
+    )
+    session.add(user)
     session.commit()
     
     print("Seeded admin user")
