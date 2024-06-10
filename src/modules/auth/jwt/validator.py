@@ -5,7 +5,7 @@ from jose import jwt
 from decouple import config
 
 
-secret_key = "SUA_CHAVE_SECRETA_AQUI"
+secret_key = config("SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 3000
 
