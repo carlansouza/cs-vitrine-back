@@ -1,3 +1,4 @@
+from pydantic import EmailStr
 from src.modules.database.db_connection import SessionLocal
 from src.models.users_model import User as UserModel
 from src.modules.user.dto import User
@@ -66,3 +67,10 @@ def get_user_by_email(email: str):
         data = None
     session.close()
     return data
+
+def update_password(user_email: EmailStr, hashed_password: str):
+    session = SessionLocal()
+    user = session.query(UserModel).filter(UserModel.email == user_email).first()
+    user.hashed_password = hashed_password
+    session.commit()
+    return user

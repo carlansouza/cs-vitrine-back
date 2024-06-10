@@ -11,6 +11,7 @@ from typing import Any
 from fastapi import Query
 from src.modules.user import service
 from src.modules.auth import service as service_auth
+from src.modules.user.dto import UpdatePasswordRequest
 
 
 BASE_URL = "/users"
@@ -73,4 +74,10 @@ async def login(user_data: UserAuth):
     return {"token": token}
     
 
+@router.put(BASE_URL + "/alter/password", tags=[CONTEXT])
+async def update_password_user(user: UpdatePasswordRequest):
+    try:
+        return service.update_password(user.email, user.hashed_password)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail="User not found")
     

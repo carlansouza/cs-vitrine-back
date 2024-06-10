@@ -21,3 +21,7 @@ class UserLogin(BaseModel):
     email: str
     hashed_password: str
     role: str
+
+class UpdatePasswordRequest(BaseModel):
+    email: EmailStr
+    hashed_password: str

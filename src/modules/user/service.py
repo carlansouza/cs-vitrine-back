@@ -1,4 +1,6 @@
+from fastapi import HTTPException
 from passlib.context import CryptContext
+from pydantic import EmailStr
 from src.modules.user.dto import UserCreate
 from src.modules.user import repository
 from src.models.users_model import User as UserModel
@@ -31,5 +33,9 @@ def delete_user(user_id: int):
 
 def get_user_by_email(email: str):
     return repository.get_user_by_email(email)
+
+def update_password(user_email: EmailStr, hashed_password: str):
+    hashed_password = pwd_context.hash(hashed_password)
+    return repository.update_password(user_email, hashed_password)
 
 
