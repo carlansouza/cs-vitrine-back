@@ -54,7 +54,6 @@ o seed.py é responsável por popular o banco de dados com os dados iniciais.
 
 | User: admin@admin.com | Password: admin | Tipo: Admin |
 |-----------------------|------------------| ------------|
-| User: user@example.com | Password: password1| Tipo: User |
 
 
 
